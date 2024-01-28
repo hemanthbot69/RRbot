@@ -63,32 +63,18 @@ async def start(client, message):
         )
         return
     
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
-        try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Make sure Bot is admin in Forcesub channel")
-            return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "❆ Join our Sponsored Channel ❆", url=invite_link.invite_link
-                )
-            ]
-        ]
-
-        if message.command[1] != "subscribe":
-            try:
-                kk, file_id = message.command[1].split("_", 1)
-                btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data=f"checksub#{kk}#{file_id}")])
-            except (IndexError, ValueError):
-                btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-        await client.send_message(
+    btn = await is_subscribed(client, message)
+    if btn:
+        btn.append(
+            [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data=f"checksub#{mc}")]
+        )
+        reply_markup = InlineKeyboardMarkup(btn)
+        await client.send_photo(
             chat_id=message.from_user.id,
-            text="**❗️Important**\n\nClick on the **'Join our Sponsored Channel'** button below and join our sponsored channel, then click on the **'Try Again'** button below...\n\nThen you will get the **Movie Files...☺️**",
-            reply_markup=InlineKeyboardMarkup(btn),
-            parse_mode=enums.ParseMode.MARKDOWN
-            )
+            photo="https://telegra.ph/file/a4c2c5d8a999b47970227.jpg",
+            caption="**❗️Important**\n\nClick on the **'Join our Sponsored Channel'** button below and join our sponsored channel, then click on the **'Try Again'** button below...\n\nThen you will get the **Movie Files...☺️**",
+            reply_markup=reply_markup
+        )
         return
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
         buttons = [[
