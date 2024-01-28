@@ -66,7 +66,7 @@ async def start(client, message):
     btn = await is_subscribed(client, message)
     if btn:
         btn.append(
-            [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data=f"checksub#{mc}")]
+            [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data=f"checksub#{message.command[1]}")]
         )
         reply_markup = InlineKeyboardMarkup(btn)
         await client.send_photo(
