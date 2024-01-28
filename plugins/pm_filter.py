@@ -889,7 +889,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         ident, mc = query.data.split("#")
         btn = await is_subscribed(client, query)
         if btn:
-            await query.answer(f"Hello {query.from_user.first_name},\nPlease join my updates channel and try again.", show_alert=True)
+            await query.answer(f"Hello {query.from_user.first_name},\nPlease join our Sponsored channels and try again.", show_alert=True)
             btn.append(
                 [InlineKeyboardButton("🔁 Try Again 🔁", callback_data=f"checksub#{mc}")]
             )
