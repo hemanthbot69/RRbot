@@ -71,7 +71,6 @@ async def start(client, message):
         reply_markup = InlineKeyboardMarkup(btn)
         await client.send_photo(
             chat_id=message.from_user.id,
-            photo="https://telegra.ph/file/a4c2c5d8a999b47970227.jpg",
             caption="**❗️Important**\n\n
 
 You need to join our sponsored channels compulsory\n\nClick below button and **Join our all sponsored channels, then click on the 'Try Again' button** below...\n\nThen you will get the Movie Files...☺️**",
